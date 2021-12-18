@@ -16,6 +16,7 @@
 		C0BDD330276E3FE100B09E2A /* LaunchPadGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BDD32F276E3FE100B09E2A /* LaunchPadGameTests.swift */; };
 		C0BDD33A276E3FE100B09E2A /* LaunchPadGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BDD339276E3FE100B09E2A /* LaunchPadGameUITests.swift */; };
 		C0BDD33C276E3FE100B09E2A /* LaunchPadGameUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BDD33B276E3FE100B09E2A /* LaunchPadGameUITestsLaunchTests.swift */; };
+		C0BDD349276E4BC800B09E2A /* ButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BDD348276E4BC800B09E2A /* ButtonCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		C0BDD335276E3FE100B09E2A /* LaunchPadGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaunchPadGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0BDD339276E3FE100B09E2A /* LaunchPadGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchPadGameUITests.swift; sourceTree = "<group>"; };
 		C0BDD33B276E3FE100B09E2A /* LaunchPadGameUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchPadGameUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C0BDD348276E4BC800B09E2A /* ButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				C0BDD321276E3FE100B09E2A /* Assets.xcassets */,
 				C0BDD323276E3FE100B09E2A /* LaunchScreen.storyboard */,
 				C0BDD326276E3FE100B09E2A /* Info.plist */,
+				C0BDD348276E4BC800B09E2A /* ButtonCollectionViewCell.swift */,
 			);
 			path = LaunchPadGame;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0BDD349276E4BC800B09E2A /* ButtonCollectionViewCell.swift in Sources */,
 				C0BDD31D276E3FDE00B09E2A /* ViewController.swift in Sources */,
 				C0BDD319276E3FDE00B09E2A /* AppDelegate.swift in Sources */,
 				C0BDD31B276E3FDE00B09E2A /* SceneDelegate.swift in Sources */,
