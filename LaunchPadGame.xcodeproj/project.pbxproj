@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0777741276F191C00750AF7 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0777740276F191C00750AF7 /* Song.swift */; };
+		C0777743276F197500750AF7 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0777742276F197500750AF7 /* AudioPlayer.swift */; };
+		C0777745276F28EB00750AF7 /* ily.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C0777744276F28EB00750AF7 /* ily.mp3 */; };
+		C0777747276F29B100750AF7 /* Christmas HipHop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C0777746276F29B100750AF7 /* Christmas HipHop.mp3 */; };
+		C08FC45C276F184400F8DD8D /* SongTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FC45B276F184400F8DD8D /* SongTableViewController.swift */; };
 		C0BDD319276E3FDE00B09E2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BDD318276E3FDE00B09E2A /* AppDelegate.swift */; };
 		C0BDD31B276E3FDE00B09E2A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BDD31A276E3FDE00B09E2A /* SceneDelegate.swift */; };
 		C0BDD31D276E3FDE00B09E2A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BDD31C276E3FDE00B09E2A /* ViewController.swift */; };
@@ -37,6 +42,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C0777740276F191C00750AF7 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		C0777742276F197500750AF7 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		C0777744276F28EB00750AF7 /* ily.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ily.mp3; sourceTree = "<group>"; };
+		C0777746276F29B100750AF7 /* Christmas HipHop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Christmas HipHop.mp3"; sourceTree = "<group>"; };
+		C08FC45B276F184400F8DD8D /* SongTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewController.swift; sourceTree = "<group>"; };
 		C0BDD315276E3FDE00B09E2A /* LaunchPadGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaunchPadGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0BDD318276E3FDE00B09E2A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0BDD31A276E3FDE00B09E2A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,9 +88,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C077773D276F18E900750AF7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C0777740276F191C00750AF7 /* Song.swift */,
+				C0777742276F197500750AF7 /* AudioPlayer.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C077773E276F18F000750AF7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C08FC45B276F184400F8DD8D /* SongTableViewController.swift */,
+				C0BDD31C276E3FDE00B09E2A /* ViewController.swift */,
+				C0BDD348276E4BC800B09E2A /* ButtonCollectionViewCell.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C077773F276F190800750AF7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C0BDD31E276E3FDE00B09E2A /* Main.storyboard */,
+				C0BDD321276E3FE100B09E2A /* Assets.xcassets */,
+				C0BDD323276E3FE100B09E2A /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C0BDD30C276E3FDE00B09E2A = {
 			isa = PBXGroup;
 			children = (
+				C0777744276F28EB00750AF7 /* ily.mp3 */,
+				C0777746276F29B100750AF7 /* Christmas HipHop.mp3 */,
 				C0BDD317276E3FDE00B09E2A /* LaunchPadGame */,
 				C0BDD32E276E3FE100B09E2A /* LaunchPadGameTests */,
 				C0BDD338276E3FE100B09E2A /* LaunchPadGameUITests */,
@@ -103,12 +144,10 @@
 			children = (
 				C0BDD318276E3FDE00B09E2A /* AppDelegate.swift */,
 				C0BDD31A276E3FDE00B09E2A /* SceneDelegate.swift */,
-				C0BDD31C276E3FDE00B09E2A /* ViewController.swift */,
-				C0BDD31E276E3FDE00B09E2A /* Main.storyboard */,
-				C0BDD321276E3FE100B09E2A /* Assets.xcassets */,
-				C0BDD323276E3FE100B09E2A /* LaunchScreen.storyboard */,
 				C0BDD326276E3FE100B09E2A /* Info.plist */,
-				C0BDD348276E4BC800B09E2A /* ButtonCollectionViewCell.swift */,
+				C077773F276F190800750AF7 /* View */,
+				C077773D276F18E900750AF7 /* Model */,
+				C077773E276F18F000750AF7 /* Controllers */,
 			);
 			path = LaunchPadGame;
 			sourceTree = "<group>";
@@ -235,8 +274,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0BDD325276E3FE100B09E2A /* LaunchScreen.storyboard in Resources */,
+				C0777747276F29B100750AF7 /* Christmas HipHop.mp3 in Resources */,
 				C0BDD322276E3FE100B09E2A /* Assets.xcassets in Resources */,
 				C0BDD320276E3FDE00B09E2A /* Main.storyboard in Resources */,
+				C0777745276F28EB00750AF7 /* ily.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,10 +302,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0777741276F191C00750AF7 /* Song.swift in Sources */,
+				C08FC45C276F184400F8DD8D /* SongTableViewController.swift in Sources */,
 				C0BDD349276E4BC800B09E2A /* ButtonCollectionViewCell.swift in Sources */,
 				C0BDD31D276E3FDE00B09E2A /* ViewController.swift in Sources */,
 				C0BDD319276E3FDE00B09E2A /* AppDelegate.swift in Sources */,
 				C0BDD31B276E3FDE00B09E2A /* SceneDelegate.swift in Sources */,
+				C0777743276F197500750AF7 /* AudioPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

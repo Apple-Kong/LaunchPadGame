@@ -8,5 +8,13 @@
 import UIKit
 
 class ButtonCollectionViewCell: UICollectionViewCell {
-    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                
+            } else {
+                
+            }
+        }
+    }
 }
