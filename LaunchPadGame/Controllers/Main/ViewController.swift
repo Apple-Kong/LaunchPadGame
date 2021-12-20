@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var logoImageView: UIImageView!
     
     @IBAction func modeChanged(_ sender: UISegmentedControl) {
-        if sender.
+        
     }
     
     @IBOutlet weak var heartImageView: UIImageView!
