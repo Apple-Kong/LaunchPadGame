@@ -8,12 +8,18 @@
 import UIKit
 
 class ButtonCollectionViewCell: UICollectionViewCell {
+    
+    @IBOutlet weak var buttonImageView: UIImageView!
+    
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                
+                buttonImageView.image = UIImage(named: "heart")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.buttonImageView.image = UIImage(named: "BurntOrange")
+                }
             } else {
-                
+                buttonImageView.image = UIImage(named: "BurntOrange")
             }
         }
     }
