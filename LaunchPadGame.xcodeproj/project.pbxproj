@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C011B33A27704348009BF610 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C011B33927704348009BF610 /* Lottie */; };
+		C011B33C27704394009BF610 /* fever.json in Resources */ = {isa = PBXBuildFile; fileRef = C011B33B27704394009BF610 /* fever.json */; };
+		C011B33E277054CC009BF610 /* ViewController+FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C011B33D277054CC009BF610 /* ViewController+FlowLayout.swift */; };
+		C011B34027705539009BF610 /* ViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C011B33F27705539009BF610 /* ViewController+DataSource.swift */; };
 		C0777741276F191C00750AF7 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0777740276F191C00750AF7 /* Song.swift */; };
 		C0777743276F197500750AF7 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0777742276F197500750AF7 /* AudioPlayer.swift */; };
 		C0777745276F28EB00750AF7 /* ily.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C0777744276F28EB00750AF7 /* ily.mp3 */; };
@@ -42,6 +46,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C011B33B27704394009BF610 /* fever.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fever.json; sourceTree = "<group>"; };
+		C011B33D277054CC009BF610 /* ViewController+FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+FlowLayout.swift"; sourceTree = "<group>"; };
+		C011B33F27705539009BF610 /* ViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DataSource.swift"; sourceTree = "<group>"; };
 		C0777740276F191C00750AF7 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		C0777742276F197500750AF7 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		C0777744276F28EB00750AF7 /* ily.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ily.mp3; sourceTree = "<group>"; };
@@ -68,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C011B33A27704348009BF610 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +96,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C011B34127705563009BF610 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C0BDD31C276E3FDE00B09E2A /* ViewController.swift */,
+				C011B33F27705539009BF610 /* ViewController+DataSource.swift */,
+				C011B33D277054CC009BF610 /* ViewController+FlowLayout.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		C077773D276F18E900750AF7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,8 +118,8 @@
 		C077773E276F18F000750AF7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C011B34127705563009BF610 /* Main */,
 				C08FC45B276F184400F8DD8D /* SongTableViewController.swift */,
-				C0BDD31C276E3FDE00B09E2A /* ViewController.swift */,
 				C0BDD348276E4BC800B09E2A /* ButtonCollectionViewCell.swift */,
 			);
 			path = Controllers;
@@ -120,6 +138,7 @@
 		C0BDD30C276E3FDE00B09E2A = {
 			isa = PBXGroup;
 			children = (
+				C011B33B27704394009BF610 /* fever.json */,
 				C0777744276F28EB00750AF7 /* ily.mp3 */,
 				C0777746276F29B100750AF7 /* Christmas HipHop.mp3 */,
 				C0BDD317276E3FDE00B09E2A /* LaunchPadGame */,
@@ -185,6 +204,9 @@
 			dependencies = (
 			);
 			name = LaunchPadGame;
+			packageProductDependencies = (
+				C011B33927704348009BF610 /* Lottie */,
+			);
 			productName = LaunchPadGame;
 			productReference = C0BDD315276E3FDE00B09E2A /* LaunchPadGame.app */;
 			productType = "com.apple.product-type.application";
@@ -257,6 +279,9 @@
 				Base,
 			);
 			mainGroup = C0BDD30C276E3FDE00B09E2A;
+			packageReferences = (
+				C011B33827704348009BF610 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = C0BDD316276E3FDE00B09E2A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -273,6 +298,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C011B33C27704394009BF610 /* fever.json in Resources */,
 				C0BDD325276E3FE100B09E2A /* LaunchScreen.storyboard in Resources */,
 				C0777747276F29B100750AF7 /* Christmas HipHop.mp3 in Resources */,
 				C0BDD322276E3FE100B09E2A /* Assets.xcassets in Resources */,
@@ -303,7 +329,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0777741276F191C00750AF7 /* Song.swift in Sources */,
+				C011B34027705539009BF610 /* ViewController+DataSource.swift in Sources */,
 				C08FC45C276F184400F8DD8D /* SongTableViewController.swift in Sources */,
+				C011B33E277054CC009BF610 /* ViewController+FlowLayout.swift in Sources */,
 				C0BDD349276E4BC800B09E2A /* ButtonCollectionViewCell.swift in Sources */,
 				C0BDD31D276E3FDE00B09E2A /* ViewController.swift in Sources */,
 				C0BDD319276E3FDE00B09E2A /* AppDelegate.swift in Sources */,
@@ -672,6 +700,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C011B33827704348009BF610 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C011B33927704348009BF610 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C011B33827704348009BF610 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C0BDD30D276E3FDE00B09E2A /* Project object */;
 }

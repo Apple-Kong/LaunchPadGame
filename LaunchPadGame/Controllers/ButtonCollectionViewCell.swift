@@ -15,7 +15,7 @@ class ButtonCollectionViewCell: UICollectionViewCell {
         didSet {
             if isSelected {
                 buttonImageView.image = UIImage(named: "heart")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     self.buttonImageView.image = UIImage(named: "BurntOrange")
                 }
             } else {

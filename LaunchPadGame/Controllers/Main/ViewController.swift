@@ -6,22 +6,39 @@
 //
 
 import UIKit
+import Lottie
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var buttonCollectionView: UICollectionView!
-
+    @IBOutlet weak var logoImageView: UIImageView!
     
-    @IBOutlet weak var albumImageView: UIImageView!
+    @IBAction func modeChanged(_ sender: UISegmentedControl) {
+        if sender.
+    }
+    
     @IBOutlet weak var heartImageView: UIImageView!
     @IBOutlet weak var HpGageView: UIProgressView!
+    @IBOutlet weak var feverFireView: UIView!
+    @IBOutlet weak var feverImageView: UIImageView!
+    @IBOutlet weak var scoreLabel: UILabel!
     
-    @IBOutlet weak var logoImageView: UIImageView!
+    @IBOutlet weak var buttonCollectionView: UICollectionView!
+    
     @IBOutlet weak var currentSongView: UIView!
+    @IBOutlet weak var albumImageView: UIImageView!
+   
     
     let player = AudioPlayer.shared
     var readiedButton = Array(repeating: false, count: 16)
-    var count = 0
+    var count = 0 {
+        didSet {
+            scoreLabel.text = "score: \(count)"
+        }
+    }
+    var isFever = false
+    
+    
+    
     
     @IBOutlet weak var playButton: UIButton!
     override func viewDidLoad() {
@@ -45,6 +62,7 @@ class ViewController: UIViewController {
         
         logoImageView.layer.masksToBounds = true
         logoImageView.layer.cornerRadius = 10
+        logoImageView.backgroundColor = UIColor(white: 1, alpha: 0.7)
 
     }
     
@@ -52,6 +70,8 @@ class ViewController: UIViewController {
         albumImageView.image = UIImage(named: player.currentItem?.name ?? "ily")
         
     }
+    
+
    
     @IBAction func playButtonTapped(_ sender: UIButton) {
         
@@ -61,7 +81,7 @@ class ViewController: UIViewController {
         
         DispatchQueue.main.async {
             
-            //미완성 코드 [ ] 하트 콩닥거리는 애니메이션 작성중 
+            //미완성 코드 [ ] 하트 콩닥거리는 애니메이션 작성중
             Timer.scheduledTimer(withTimeInterval: 1.12, repeats: true) { timer in
                 
                 self.heartImageView.transform = readyTransform
@@ -108,80 +128,10 @@ class ViewController: UIViewController {
 }
 
 
-extension ViewController: UICollectionViewDelegateFlowLayout {
-    
-    //위 아래 간격
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
-    }
-    
-    
-    //옆간격
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 6
-    }
-    
-    //cell size
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width / 4 - 6
-        let size = CGSize(width: width, height: width)
-        
-        return size
-    }
-}
 
 
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 16
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        
-        return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        print(indexPath.row)
-        
-        //준비된 버튼 터치시 점수 증가
-        if readiedButton[indexPath.row] {
-            readiedButton[indexPath.row] = false
-            count = count + 1
-            print("현재점수 : \(count)")
-            
-            if HpGageView.progress == 1 {
-                // Fever Event!
-            }
-            HpGageView.progress = HpGageView.progress + 0.025
-        } else {
-            count = count - 1
-            print("현재점수 : \(count)")
-            
-        }
 
-        
-        //터치시 스프링 애니메이션
-        if let cell = collectionView.cellForItem(at: indexPath) as? ButtonCollectionViewCell {
-            cell.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-            
-            UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: CGFloat(0.40), initialSpringVelocity: CGFloat(4.0), options: UIView.AnimationOptions.allowUserInteraction) {
-                cell.transform = CGAffineTransform.identity
-            } completion: { Void in()
-                
-            }
-
-        }
-
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
- 
-    }
-}
 
 
 func mapIndex(before: Int) -> Int {
