@@ -12,6 +12,8 @@ struct Song {
     let singer: String
     let bpm: Int
     
+    let start: Double
+    
     //노트 리스트
     var notes: [(Float, Int)]?
     

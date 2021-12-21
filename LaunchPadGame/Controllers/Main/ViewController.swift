@@ -26,7 +26,9 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var currentSongView: UIView!
     @IBOutlet weak var albumImageView: UIImageView!
-   
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var singerLabel: UILabel!
+    
     
     let player = AudioPlayer.shared
     var readiedButton = Array(repeating: false, count: 16)
@@ -44,6 +46,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        
         
         self.buttonCollectionView.delegate = self
         self.buttonCollectionView.dataSource = self
@@ -67,11 +71,15 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        albumImageView.image = UIImage(named: player.currentItem?.name ?? "ily")
         
+        DispatchQueue.main.async {
+            self.albumImageView.image = UIImage(named: self.player.currentItem?.name ?? "ily")
+            self.titleLabel.text = self.player.currentItem?.name
+            self.singerLabel.text = self.player.currentItem?.singer
+        }
     }
     
-
+    
    
     @IBAction func playButtonTapped(_ sender: UIButton) {
         
@@ -100,25 +108,56 @@ class ViewController: UIViewController {
         }
         
         
-        //메인스레드 에서 작동
-        DispatchQueue.main.asyncAfter(deadline: .now() + 17) {
-            Timer.scheduledTimer(withTimeInterval: 0.56, repeats: true) { timer in
+        
+        
+        
+        let buttonWorkItem = DispatchWorkItem {
+            let secPerBeat = 60 / Double(self.player.currentItem?.bpm ?? 110)
+            
+            Timer.scheduledTimer(withTimeInterval: secPerBeat, repeats: true) { timer in
                     //난수 발생
-                    let randomIndex = Int.random(in: 0...15)
-    
-                    //난수에 해당하는 버튼 크기 증가
-                    UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.0, options: [.curveEaseOut]) {
-                        self.buttonCollectionView.visibleCells[randomIndex].transform = readyTransform
-                    } completion: { done in
-                        if done {
-                            
-                            //크기 증가 완료 시에 준비된 버튼 인덱스 값을 true 로 만듦
-                            self.readiedButton[mapIndex(before: randomIndex)] = true
-                            print("button readied!! \(randomIndex)")
-                        }
+                let randomIndex = Int.random(in: 0...15)
+
+                //난수에 해당하는 버튼 크기 증가
+                UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.0, options: [.curveEaseOut]) {
+                    self.buttonCollectionView.visibleCells[randomIndex].transform = readyTransform
+                } completion: { done in
+                    if done {
+                        
+                        //크기 증가 완료 시에 준비된 버튼 인덱스 값을 true 로 만듦
+                        self.readiedButton[mapIndex(before: randomIndex)] = true
+                        print("button readied!! \(randomIndex)")
                     }
                 }
             }
+        }
+        
+        let start = player.currentItem?.start ?? 16
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + start, execute: buttonWorkItem)
+        
+        //메인스레드 에서 작동
+//        DispatchQueue.main.asyncAfter(deadline: .now() + start) {
+//
+//            let secPerBeat = 60 / Double(self.player.currentItem?.bpm ?? 110)
+//
+//            Timer.scheduledTimer(withTimeInterval: secPerBeat, repeats: true) { timer in
+//                    //난수 발생
+//                    let randomIndex = Int.random(in: 0...15)
+//
+//                    //난수에 해당하는 버튼 크기 증가
+//                    UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.0, options: [.curveEaseOut]) {
+//                        self.buttonCollectionView.visibleCells[randomIndex].transform = readyTransform
+//                    } completion: { done in
+//                        if done {
+//
+//                            //크기 증가 완료 시에 준비된 버튼 인덱스 값을 true 로 만듦
+//                            self.readiedButton[mapIndex(before: randomIndex)] = true
+//                            print("button readied!! \(randomIndex)")
+//                        }
+//                    }
+//                }
+//            }
     }
                                       
     @IBAction func switchButtonTapped(_ sender: UIButton) {
@@ -184,4 +223,5 @@ extension UIView{
         rotation.repeatCount = Float.greatestFiniteMagnitude
         self.layer.add(rotation, forKey: "rotationAnimation")
     }
+
 }
