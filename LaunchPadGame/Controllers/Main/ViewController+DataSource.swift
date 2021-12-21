@@ -30,6 +30,8 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             if readiedButton[indexPath.row] {
                 readiedButton[indexPath.row] = false
                 
+                
+                // 피버 타임에 따른 점수 등락 폭 조정
                 if isFever {
                     count = count + 100
                 } else {
@@ -51,11 +53,19 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
                     animationView.loopMode = .loop
                     
                     isFever = true
-                    feverImageView.isHidden = false
+                    
                 }
-                HpGageView.progress = HpGageView.progress + 0.2
+                HpGageView.progress = HpGageView.progress + 0.05
             } else {
                 count = count - 10
+                HpGageView.progress = HpGageView.progress - 0.05
+                
+                if isFever {
+                    isFever = false
+                    
+                }
+                
+                
             }
         }
         

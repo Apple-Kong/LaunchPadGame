@@ -9,7 +9,10 @@ import UIKit
 import Lottie
 
 class ViewController: UIViewController {
-
+    
+    private var buttonWorkItem: DispatchWorkItem?
+    private var buttonEventTimer: Timer?
+    
     @IBOutlet weak var logoImageView: UIImageView!
     
     @IBAction func modeChanged(_ sender: UISegmentedControl) {
@@ -37,7 +40,17 @@ class ViewController: UIViewController {
             scoreLabel.text = "score: \(count)"
         }
     }
-    var isFever = false
+    var isFever = false {
+        didSet {
+            if isFever {
+                feverFireView.isHidden = false
+                feverImageView.isHidden = false
+            } else {
+                feverFireView.isHidden = true
+                feverImageView.isHidden = true
+            }
+        }
+    }
     
     
     
@@ -79,9 +92,40 @@ class ViewController: UIViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        //뷰전환시 모든 작업중지 및 뷰 초기화
+        stopButtonEvent()
+        player.pause()
+        count = 0
+        HpGageView.progress = 0
+        isFever = false
+    }
+    
+    func stopButtonEvent() {
+        
+        //버튼 이벤트 내부 타이머 동작 중지
+        if let buttonEventTimer = buttonEventTimer {
+            if buttonEventTimer.isValid {
+                buttonEventTimer.invalidate()
+                print("timer isValid : \(buttonEventTimer.isValid)")
+            }
+        }
+        
+        //버튼 이벤트 디스패치 큐에서 제거
+        if let buttonWorkItem = buttonWorkItem {
+            buttonWorkItem.cancel()
+            print("buttonWorkItem : \(buttonWorkItem.isCancelled)")
+        }
+    }
+    
+    
+    
     
    
     @IBAction func playButtonTapped(_ sender: UIButton) {
+        
+        
+        player.pause()
         
         player.playCurrentSong()
         
@@ -108,13 +152,10 @@ class ViewController: UIViewController {
         }
         
         
-        
-        
-        
-        let buttonWorkItem = DispatchWorkItem {
+        buttonWorkItem = DispatchWorkItem {
             let secPerBeat = 60 / Double(self.player.currentItem?.bpm ?? 110)
             
-            Timer.scheduledTimer(withTimeInterval: secPerBeat, repeats: true) { timer in
+            self.buttonEventTimer = Timer.scheduledTimer(withTimeInterval: secPerBeat, repeats: true) { timer in
                     //난수 발생
                 let randomIndex = Int.random(in: 0...15)
 
@@ -134,35 +175,13 @@ class ViewController: UIViewController {
         
         let start = player.currentItem?.start ?? 16
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + start, execute: buttonWorkItem)
-        
-        //메인스레드 에서 작동
-//        DispatchQueue.main.asyncAfter(deadline: .now() + start) {
-//
-//            let secPerBeat = 60 / Double(self.player.currentItem?.bpm ?? 110)
-//
-//            Timer.scheduledTimer(withTimeInterval: secPerBeat, repeats: true) { timer in
-//                    //난수 발생
-//                    let randomIndex = Int.random(in: 0...15)
-//
-//                    //난수에 해당하는 버튼 크기 증가
-//                    UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.0, options: [.curveEaseOut]) {
-//                        self.buttonCollectionView.visibleCells[randomIndex].transform = readyTransform
-//                    } completion: { done in
-//                        if done {
-//
-//                            //크기 증가 완료 시에 준비된 버튼 인덱스 값을 true 로 만듦
-//                            self.readiedButton[mapIndex(before: randomIndex)] = true
-//                            print("button readied!! \(randomIndex)")
-//                        }
-//                    }
-//                }
-//            }
+        if let buttonWorkItem = buttonWorkItem {
+            DispatchQueue.main.asyncAfter(deadline: .now() + start, execute: buttonWorkItem)
+        }
     }
                                       
     @IBAction func switchButtonTapped(_ sender: UIButton) {
-        
-        
+
     }
 }
 
