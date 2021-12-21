@@ -11,6 +11,8 @@ import AVFoundation
 
 
 class AudioPlayer {
+    
+    //싱글톤 패턴 사용
     static let shared = AudioPlayer()
     
     var player =  AVAudioPlayer()
@@ -21,6 +23,8 @@ class AudioPlayer {
                             Song(name: "Save Your Tears", singer: "The Weeknd", bpm: 119, start: 7.4)]
     
     
+    
+    //현재 노래 변경
     func setCurrentItem(songName: String) {
         
         for song in self.songList {
@@ -48,28 +52,16 @@ class AudioPlayer {
         
     }
     
+    //현재 항목 재생
     func playCurrentSong() {
         //현재 노래 항목 불러오기
         player.play()
     }
     
+    //재생 일시정지
     func pause() {
         if player.isPlaying {
             player.pause()
         }
     }
-    
-//    func createNotes() {
-//        guard let bpm = currentItem?.bpm else { return }
-//
-//        currentItem?.notes = []
-//        for i in 10...100 {
-//            currentItem?.notes?.append((60 / (Float(bpm)) * Float(i) , Int.random(in: 0...15)))
-//        }
-//    }
-}
-
-
-extension AudioPlayer {
-    
 }

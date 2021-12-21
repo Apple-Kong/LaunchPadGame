@@ -35,11 +35,13 @@ class ViewController: UIViewController {
     
     let player = AudioPlayer.shared
     var readiedButton = Array(repeating: false, count: 16)
+    
     var count = 0 {
         didSet {
             scoreLabel.text = "score: \(count)"
         }
     }
+    
     var isFever = false {
         didSet {
             if isFever {
@@ -52,7 +54,15 @@ class ViewController: UIViewController {
         }
     }
     
-    
+    var isPlaying: Bool = false {
+        didSet {
+            if isPlaying {
+                playButton.setImage(UIImage(systemName: "stop.fill"), for: .normal)
+            } else {
+                playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            }
+        }
+    }
     
     
     @IBOutlet weak var playButton: UIButton!
@@ -70,6 +80,7 @@ class ViewController: UIViewController {
         player.setCurrentItem(songName: "ily")
         
         
+        //뷰 모양 수정
         albumImageView.layer.cornerRadius = albumImageView.frame.height / 2
         albumImageView.clipsToBounds = true
         
@@ -124,74 +135,87 @@ class ViewController: UIViewController {
    
     @IBAction func playButtonTapped(_ sender: UIButton) {
         
+        sender.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         
-        player.pause()
-        
-        player.playCurrentSong()
-        
-        let readyTransform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        
-        DispatchQueue.main.async {
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: CGFloat(0.40), initialSpringVelocity: CGFloat(4.0), options: UIView.AnimationOptions.allowUserInteraction) {
+            sender.transform = CGAffineTransform.identity
+        } completion: { Void in()
             
-            //미완성 코드 [ ] 하트 콩닥거리는 애니메이션 작성중
-            Timer.scheduledTimer(withTimeInterval: 1.12, repeats: true) { timer in
-                
-                self.heartImageView.transform = readyTransform
-            }
         }
         
-        DispatchQueue.main.async {
-            self.albumImageView.transform = readyTransform
-            
-            UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: CGFloat(0.40), initialSpringVelocity: CGFloat(4.0), options: UIView.AnimationOptions.allowUserInteraction) {
-                self.albumImageView.transform = CGAffineTransform.identity
-            } completion: { Void in()
-                
+        if isPlaying {
+            albumImageView.layer.removeAllAnimations()
+            self.player.pause()
+            self.stopButtonEvent()
+            self.isPlaying = false
+            if self.isFever {
+                self.isFever = false
             }
-            self.albumImageView.rotate()
-        }
-        
-        
-        buttonWorkItem = DispatchWorkItem {
-            let secPerBeat = 60 / Double(self.player.currentItem?.bpm ?? 110)
             
-            self.buttonEventTimer = Timer.scheduledTimer(withTimeInterval: secPerBeat, repeats: true) { timer in
-                    //난수 발생
-                let randomIndex = Int.random(in: 0...15)
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.player.setCurrentItem(songName: self.player.currentItem?.name ?? "ily")
+            }
+        } else {
+            
+            player.pause()
+            
+            player.playCurrentSong()
+            isPlaying = true
+            let readyTransform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            
+            DispatchQueue.main.async {
+                
+                //미완성 코드 [ ] 하트 콩닥거리는 애니메이션 작성중
+                Timer.scheduledTimer(withTimeInterval: 1.12, repeats: true) { timer in
+                    
+                    self.heartImageView.transform = readyTransform
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.albumImageView.transform = readyTransform
+                
+                UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: CGFloat(0.40), initialSpringVelocity: CGFloat(4.0), options: UIView.AnimationOptions.allowUserInteraction) {
+                    self.albumImageView.transform = CGAffineTransform.identity
+                } completion: { Void in()
+                    
+                }
+                self.albumImageView.rotate()
+            }
+            
+            
+            buttonWorkItem = DispatchWorkItem {
+                let secPerBeat = 60 / Double(self.player.currentItem?.bpm ?? 110)
+                
+                self.buttonEventTimer = Timer.scheduledTimer(withTimeInterval: secPerBeat, repeats: true) { timer in
+                        //난수 발생
+                    let randomIndex = Int.random(in: 0...15)
 
-                //난수에 해당하는 버튼 크기 증가
-                UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.0, options: [.curveEaseOut]) {
-                    self.buttonCollectionView.visibleCells[randomIndex].transform = readyTransform
-                } completion: { done in
-                    if done {
-                        
-                        //크기 증가 완료 시에 준비된 버튼 인덱스 값을 true 로 만듦
-                        self.readiedButton[mapIndex(before: randomIndex)] = true
-                        print("button readied!! \(randomIndex)")
+                    //난수에 해당하는 버튼 크기 증가
+                    UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1.0, options: [.curveEaseOut]) {
+                        self.buttonCollectionView.visibleCells[randomIndex].transform = readyTransform
+                    } completion: { done in
+                        if done {
+                            
+                            //크기 증가 완료 시에 준비된 버튼 인덱스 값을 true 로 만듦
+                            self.readiedButton[mapIndex(before: randomIndex)] = true
+                            print("button readied!! \(randomIndex)")
+                        }
                     }
                 }
             }
+            
+            let start = player.currentItem?.start ?? 16
+            
+            if let buttonWorkItem = buttonWorkItem {
+                DispatchQueue.main.asyncAfter(deadline: .now() + start, execute: buttonWorkItem)
+            }
         }
-        
-        let start = player.currentItem?.start ?? 16
-        
-        if let buttonWorkItem = buttonWorkItem {
-            DispatchQueue.main.asyncAfter(deadline: .now() + start, execute: buttonWorkItem)
-        }
-    }
-                                      
-    @IBAction func switchButtonTapped(_ sender: UIButton) {
-
     }
 }
 
 
-
-
-
-
-
-
+//visibleCell 인덱스 ~ 컬렉션 뷰 셀 인덱스 매핑
 func mapIndex(before: Int) -> Int {
     switch before {
     case 15:
@@ -232,7 +256,7 @@ func mapIndex(before: Int) -> Int {
 }
 
 
-
+// 앨범이미지 뷰 회전을 위한 애니메이션 View 확장
 extension UIView{
     func rotate() {
         let rotation : CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")

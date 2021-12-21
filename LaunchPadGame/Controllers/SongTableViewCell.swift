@@ -21,6 +21,9 @@ class SongTableViewCell: UITableViewCell {
         
         albumImageView.layer.masksToBounds = true
         albumImageView.layer.cornerRadius = albumImageView.frame.height / 2
+        albumImageView.layer.borderWidth = 1
+        albumImageView.layer.borderColor = UIColor.gray.cgColor
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

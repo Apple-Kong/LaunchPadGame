@@ -23,7 +23,7 @@ class SongTableViewController: UIViewController {
         
         let headerLabel = UILabel(frame: header.bounds)
         
-        headerLabel.text = "Song list"
+        headerLabel.text = "Track list"
         headerLabel.textAlignment = .center
         headerLabel.font = UIFont.boldSystemFont(ofSize: 30)
         header.addSubview(headerLabel)
@@ -35,7 +35,10 @@ class SongTableViewController: UIViewController {
         player.pause()
         
         // 플레이어 재생시점 맨앞으로 초기화
-        player.setCurrentItem(songName: player.currentItem?.name ?? "ily")
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.player.setCurrentItem(songName: self.player.currentItem?.name ?? "ily")
+        }
+        
     }
 }
 
